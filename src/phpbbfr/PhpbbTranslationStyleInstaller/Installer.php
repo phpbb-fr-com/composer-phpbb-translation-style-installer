@@ -10,21 +10,17 @@ class Installer extends LibraryInstaller
     public function getInstallPath(PackageInterface $package)
     {
         $extra = $package->getExtra();
+        $name = explode('/', $package->getName())[1];
 
-        if (empty($extra['phpbb-style']) || empty($extra['phpbb-language']))
+        if (!preg_match('#^([a-z0-9]+)-([a-z_]{2,})$#i', $name, $matches))
         {
-            $dir = preg_replace('#^([a-z0-9]+)-([a-z_]{2,})$#i', 'styles/$1/theme/$2', $package->getName());
-            if ($dir != $package->getName())
-            {
-                return $dir;
-            }
-            else
-            {
-                throw new \InvalidArgumentException('Invalid phpbb-translation-style composer package.');
-            }
+            throw new \InvalidArgumentException('Invalid phpbb-translation-style composer package.');
         }
 
-        return sprintf('styles/%s/theme/%s', $extra['phpbb-style'], $extra['phpbb-language']);
+        $style = isset($extra['phpbb-style']) ? $extra['phpbb-style'] : $matches[1];
+        $lang  = isset($extra['phpbb-language']) ? $extra['phpbb-language'] : $matches[2];
+
+        return sprintf('styles/%s/theme/%s', $style, $lang);
     }
 
     public function supports($packageType)
