@@ -1,0 +1,29 @@
+{
+  "name": "phpbbfr/phpbb-translation-style-installer",
+  "type": "composer-plugin",
+  "description": "A composer plugin, to install phpbb-translation-style composer packages in styles/{style-name}/theme/{lang} directory instead of the default composer installation path which is in the vendor folder",
+  "keywords": ["composer", "plugin", "phpbb", "translation", "style"],
+  "license": "GPLv2",
+  "authors": [
+    {
+      "name": "Zoddo",
+      "email": "zoddo@phpbb-fr.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "composer-plugin-api": "*"
+  },
+  "require-dev": {
+    "composer/composer": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {"phpbbfr\\PhpbbTranslationStyleInstaller": "src/"}
+  },
+  "extra": {
+    "class": "phpbbfr\\PhpbbTranslationStyleInstaller\\Plugin",
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
